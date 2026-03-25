@@ -20,3 +20,103 @@ Digunakan ketika routing membutuhkan kendali penuh dan logika dinamis. Ini adala
 >Gunakan `routes` kalau routingmu simpel dan tidak ada kondisi khusus. Gunakan `onGenerateRoute` kalau butuh kontrol, validasi, atau fleksibilitas lebih — terutama di aplikasi skala menengah ke atas.
 
 Keduanya bisa juga dikombinasikan — `routes` untuk halaman-halaman umum, `onGenerateRoute` sebagai fallback untuk menangani kasus yang lebih dinamis.
+
+
+#### Berikut contoh sederhana penggunaan named routes di Flutter:
+
+```dart
+dartimport 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Named Routes Demo',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomeScreen(),
+        '/detail': (context) => DetailScreen(),
+        '/profile': (context) => ProfileScreen(),
+      },
+    );
+  }
+}
+
+// ── Home Screen ──
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Home')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/detail');
+              },
+              child: Text('Ke Detail'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: Text('Ke Profile'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Detail Screen ──
+class DetailScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Detail')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context); // kembali ke Home
+          },
+          child: Text('Kembali'),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Profile Screen ──
+class ProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Profile')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/'); // ganti ke Home
+          },
+          child: Text('Ke Home (Replace)'),
+        ),
+      ),
+    );
+  }
+}
+```
+
+##### Poin penting yang dipakai:
+
+- `initialRoute: '/'` — route pertama yang tampil saat app dibuka
+- `routes: { ... }` — daftar semua named routes yang didaftarkan
+- `Navigator.pushNamed(context, '/nama')` — berpindah ke route tertentu
+- `Navigator.pop(context)` — kembali ke halaman sebelumnya
+- `Navigator.pushReplacementNamed(context, '/nama')` — pindah dan hapus halaman saat ini dari stack
