@@ -1,16 +1,22 @@
-# ongenerate_route_sampel
+### ongenerate_route_sampel
 
-A new Flutter project.
+#### routes
+Digunakan ketika aplikasi memiliki halaman-halaman sederhana dan statis — artinya setiap route sudah pasti ada, tidak butuh logika tambahan, dan tidak perlu memvalidasi data yang dikirim. Cocok untuk proyek kecil atau prototyping cepat karena penulisannya ringkas dan langsung.
 
-## Getting Started
+Contoh situasinya: aplikasi yang hanya punya halaman Home, About, dan Contact tanpa perlu kirim data apapun antar halaman.
 
-This project is a starting point for a Flutter application.
+#### onGenerateRoute
+Digunakan ketika routing membutuhkan kendali penuh dan logika dinamis. Ini adalah pilihan yang tepat ketika:
 
-A few resources to get you started if this is your first Flutter project:
+- Perlu validasi argumen — kamu bisa cek apakah data yang dikirim ke suatu halaman sesuai tipe yang diharapkan, lalu tampilkan halaman error jika tidak valid.
+- Argumen berupa object kompleks — seperti mengirim `User`, `Product`, atau model lainnya ke halaman tujuan.
+- Animasi transisi berbeda-beda — tiap route bisa punya transisi sendiri, misalnya fade untuk Settings, slide untuk Detail.
+- Penanganan route tidak dikenal (404) — jika route tidak ditemukan, kamu bisa arahkan ke halaman NotFound secara terpusat.
+- Routing terpusat — semua logika navigasi dikumpulkan di satu kelas `AppRouter`, sehingga lebih mudah dikelola di proyek besar.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##### Intinya
+
+>Gunakan `routes` kalau routingmu simpel dan tidak ada kondisi khusus. Gunakan `onGenerateRoute` kalau butuh kontrol, validasi, atau fleksibilitas lebih — terutama di aplikasi skala menengah ke atas.
+
+Keduanya bisa juga dikombinasikan — `routes` untuk halaman-halaman umum, `onGenerateRoute` sebagai fallback untuk menangani kasus yang lebih dinamis.
